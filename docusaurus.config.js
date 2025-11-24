@@ -81,7 +81,7 @@ const config = {
             label: 'Documentation',
           },
           {
-            href: 'https://github.com/your-org/tribe-app',
+            href: 'https://github.com/u4believe/tribe-documentation',
             label: 'GitHub',
             position: 'right',
           },
@@ -129,7 +129,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/your-org/tribe-app',
+                href: 'https://github.com/u4believe/tribe-documentation',
               },
             ],
           },

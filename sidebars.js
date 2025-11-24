@@ -25,6 +25,7 @@ const sidebars = {
     'api-integration',
     'deployment-workflow',
     'security',
+    'roadmap',
     'faq',
     'appendix',
   ],
