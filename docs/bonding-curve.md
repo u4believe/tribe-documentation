@@ -144,12 +144,81 @@ Users should set appropriate slippage tolerances based on:
 
 ## Curve Completion
 
-The bonding curve completes when:
+The bonding curve can complete in any of the four phases
 
-- All 70% of curve tokens (700M tokens) have been distributed
-- No more tokens available for purchase via curve
-- Automatic liquidity migration triggers
-- Token state changes to "Completed"
+## DEX Migration Phases
+
+DEX migration on Tribe can occur during one of three community-initiated phases. Each phase corresponds to a specific percentage of bonding-curve token sales and is executed only when the community approves migration through the Tribe governance vote.
+During any of these phases, once approved:
+
+The completeTokenLaunch function is executed by the MemeLaunchpad
+
+Liquidity migration to the DEX is performed automatically
+
+All remaining bonding-curve tokens are burned (no further curve purchases allowed)
+
+The token’s state is permanently updated to Completed
+
+The phases are defined as follows:
+
+**Phase 1 — Early Migration Trigger (20% Sold)**
+
+Migration becomes eligible when 20% of bonding-curve tokens (140M) have been purchased.
+
+If the community votes in favor:
+
+completeTokenLaunch is executed
+
+Liquidity is migrated automatically
+
+Remaining curve tokens are burned
+
+Token status updates to Completed
+
+
+**Phase 2 — Mid-Curve Migration Trigger (40% Sold)**
+
+Migration becomes eligible when 40% of bonding-curve tokens (280M) have been purchased.
+
+If the community approves:
+
+completeTokenLaunch is executed
+
+Automatic liquidity migration occurs
+
+Unsold curve tokens are burned
+
+Token state becomes Completed
+
+
+**Phase 3 — Late-Curve Migration Trigger (69% Sold)**
+
+Migration becomes eligible when 69% of bonding-curve tokens (483M) have been purchased.
+
+If approved by the community:
+
+completeTokenLaunch is called
+
+Liquidity migration is executed
+
+All remaining curve tokens are burned
+
+Token state transitions to Completed
+
+
+**Final Automatic Migration (Mandatory)**
+
+While the first three phases rely entirely on community voting, the final migration phase is automatic.
+
+When 100% of bonding-curve supply (700M tokens) is sold:
+
+The MemeLaunchpad automatically calls completeTokenLaunch
+
+Migration is executed without requiring a vote
+
+All reserved tokens + accumulated liquidity are moved to the DEX
+
+This ensures that every meme token eventually graduates to open-market trading.
 
 ## Fair Launch Philosophy
 

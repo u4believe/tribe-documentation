@@ -278,6 +278,75 @@ Events emitted for frontend integration:
 - Fee calculation verification
 - LP lock enforcement
 
+## Governance & Voting Framework
+
+Tribe introduces a transparent, decentralized, and community-controlled governance system that empowers holders to determine the timing of DEX migration for their meme coin. Each token launched on Tribe can undergo up to three voting phases, corresponding to each eligible migration trigger.
+
+In every phase, each eligible community member can cast exactly one vote.
+
+## Voting Proposal Creation
+
+A migration proposal is automatically created by the Launchpad when one of the following conditions is met:
+
+20% of bonding-curve tokens sold
+
+40% of bonding-curve tokens sold
+
+60% of bonding-curve tokens sold
+
+Only after these thresholds are reached does the Launchpad initiate a migration vote.
+
+## Voter Eligibility
+
+Only holders who meet the following requirement may participate:
+
+Must hold at least 100,000 units of the meme token under vote
+
+Eligibility applies to all users, including the creator
+
+This ensures all voters have a meaningful stake in the token’s future.
+
+## Voting Power
+
+Voting power is intentionally equalized to prevent whale dominance:
+
+Every eligible holder receives 1 vote, regardless of their balance
+
+The creator receives a fixed 20 votes, representing a 20% voting weight
+
+This structure balances community influence while ensuring creator participation is meaningful but not overpowering.
+
+## Voting Duration
+
+Each voting phase lasts 72 hours from the moment the proposal is published.
+This time window ensures global participation without delaying token progress.
+
+## Voting Rules
+
+Each participant may vote only once per phase
+
+A minimum of 100 unique voters is required for a proposal to be valid
+
+No ties — if the vote ends in a draw, the proposal is invalid
+
+A proposal passes only if the winning option receives at least 59% of all votes
+
+Percentages are not rounded upward
+
+Example: 54.4% counts as 54%, not 55%
+
+If a proposal is invalid, bonding-curve trading continues, and the token progresses to the next eligible voting phase.
+
+## Voting Fee
+
+A flat fee of 0.025 TRUST is charged when a voting transaction is approved.
+This is the only cost associated with voting.
+
+## Optionality of Voting
+
+Voting participation is entirely optional.
+However, community involvement directly shapes the token’s lifecycle and determines when it transitions from bonding-curve trading to DEX trading.
+
 ## Integration Points
 
 ### Frontend → Contract
