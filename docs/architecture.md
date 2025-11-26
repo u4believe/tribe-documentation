@@ -9,19 +9,31 @@ This section provides a comprehensive overview of the TRIBE MemeLaunchpad system
 ## Architecture Overview
 
 ```
-Frontend UI
-   │ Web3 calls
-   ▼
-MemeLaunchpad Contract
-   │  ├─ Deploys MemeTokens
-   │  ├─ Manages bonding curve
-   │  ├─ Buy/sell logic
-   │  └─ Unlock rules
-   ▼
-MemeToken Contracts
-   │ Mint/Burn
-   ▼
-DEX Router → LP Pool
+┌─────────────────┐
+│  Frontend UI    │
+└────────┬────────┘
+         │ Web3 calls
+         ▼
+┌─────────────────────────┐
+│ MemeLaunchpad Contract  │
+│  ├─ Deploys MemeTokens   │
+│  ├─ Manages bonding curve│
+│  ├─ Buy/sell logic       │
+│  └─ Unlock rules         │
+└────────┬─────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│ MemeToken       │
+│ Contracts       │
+│ Mint/Burn       │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────┐
+│  DEX Router     │
+│  → LP Pool      │
+└─────────────────┘
 ```
 
 ## Component Breakdown
@@ -87,18 +99,37 @@ Liquidity pool created on DEX:
 ## Bonding Curve Flow
 
 ```
-User → Sends TRUST
-    │
-    ▼
-Calculate current price
-    │
-Check limits & slippage
-    │
-Mint tokens
-    │
-Update supply, volumes, fees
-    │
-Update points system
+┌──────────────────────┐
+│ User → Sends TRUST   │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Calculate current    │
+│       price          │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Check limits &       │
+│     slippage         │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│     Mint tokens       │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Update supply,       │
+│ volumes, fees         │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Update points system │
+└──────────────────────┘
 ```
 
 ### Detailed Flow
@@ -144,16 +175,30 @@ This section provides deeper insight into how tokens graduate from the bonding c
 ### Migration Flow
 
 ```
-Bonding curve filled (700M tokens)
-    │
-    ▼
-Collect held tokens (300M) + TRUST
-    │
-Approve router
-    │
-addLiquidityETH()
-    │
-LP stays permanently locked in contract
+┌─────────────────────────────────────┐
+│ Bonding curve filled (700M tokens)   │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│ Collect held tokens (300M) + TRUST  │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│         Approve router              │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│        addLiquidityETH()            │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│ LP stays permanently locked in      │
+│            contract                 │
+└─────────────────────────────────────┘
 ```
 
 ### Detailed Migration Process
@@ -186,47 +231,61 @@ LP stays permanently locked in contract
 ### Token Creation Flow
 
 ```
-User Input (name, symbol, image, claimLink)
-    │
-    ▼
-createToken() called
-    │
-    ├─ Deploy ERC-20 contract
-    ├─ Set launchpad as minter
-    ├─ Mint 300M to launchpad (30%)
-    ├─ Register in mappings
-    └─ Emit TokenCreated event
+┌─────────────────────────────────────┐
+│ User Input (name, symbol, image,   │
+│           claimLink)               │
+└──────────────┬──────────────────────┘
+               │
+               ▼
+┌─────────────────────────────────────┐
+│      createToken() called           │
+└──────────────┬──────────────────────┘
+               │
+               ├─ Deploy ERC-20 contract
+               ├─ Set launchpad as minter
+               ├─ Mint 300M to launchpad (30%)
+               ├─ Register in mappings
+               └─ Emit TokenCreated event
 ```
 
 ### Buy Flow
 
 ```
-User TRUST + minTokensOut
-    │
-    ▼
-buyTokens() called
-    │
-    ├─ Calculate price
-    ├─ Validate conditions
-    ├─ Process fees
-    ├─ Mint tokens
-    ├─ Update points
-    └─ Update state
+┌──────────────────────┐
+│ User TRUST +          │
+│   minTokensOut        │
+└──────────┬────────────┘
+           │
+           ▼
+┌──────────────────────┐
+│  buyTokens() called  │
+└──────────┬────────────┘
+           │
+           ├─ Calculate price
+           ├─ Validate conditions
+           ├─ Process fees
+           ├─ Mint tokens
+           ├─ Update points
+           └─ Update state
 ```
 
 ### Sell Flow
 
 ```
-User tokens + approval
-    │
-    ▼
-sellTokens() called
-    │
-    ├─ Calculate price
-    ├─ Validate conditions
-    ├─ Process fees
-    ├─ Burn tokens
-    └─ Send TRUST
+┌──────────────────────┐
+│ User tokens + approval│
+└──────────┬────────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ sellTokens() called  │
+└──────────┬────────────┘
+           │
+           ├─ Calculate price
+           ├─ Validate conditions
+           ├─ Process fees
+           ├─ Burn tokens
+           └─ Send TRUST
 ```
 
 ## Storage Architecture

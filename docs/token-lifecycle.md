@@ -9,24 +9,42 @@ The TRIBE MemeLaunchpad manages tokens through a complete lifecycle from creatio
 ## Lifecycle Stages
 
 ```
-[Created]
-   │
-   ▼
-[Locked] — Creator must buy 2% to unlock
-   │
-   ▼
-[Unlocked]
-   │
-   ├─ Users buy/sell via bonding curve
-   │
-   ▼
-[Completed] — Bonding curve max reached
-   │
-   ▼
-[Auto-Migrate Liquidity to DEX]
-   │
-   ▼
-[Live on DEX]
+┌─────────────────┐
+│    Created      │
+└────────┬────────┘
+         │
+         ▼
+┌─────────────────────────────────┐
+│         Locked                  │
+│  Creator must buy 2% to unlock  │
+└────────┬────────────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│    Unlocked     │
+└────────┬────────┘
+         │
+         ▼
+┌──────────────────────────────┐
+│ Users buy/sell via bonding   │
+│           curve              │
+└────────┬─────────────────────┘
+         │
+         ▼
+┌─────────────────────────────────┐
+│         Completed               │
+│  Bonding curve max reached      │
+└────────┬────────────────────────┘
+         │
+         ▼
+┌──────────────────────────────┐
+│ Auto-Migrate Liquidity to DEX │
+└────────┬─────────────────────┘
+         │
+         ▼
+┌─────────────────┐
+│  Live on DEX    │
+└─────────────────┘
 ```
 
 ## Stage 1: Created

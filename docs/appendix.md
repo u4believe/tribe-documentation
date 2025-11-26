@@ -284,50 +284,72 @@ event OwnershipTransferred(
 ### Bonding Curve Flow
 
 ```
-User Action
-    │
-    ├─ Buy: Send TRUST
-    │   │
-    │   ├─ Calculate price
-    │   ├─ Check slippage
-    │   ├─ Mint tokens
-    │   ├─ Update supply
-    │   ├─ Update points
-    │   └─ Emit event
-    │
-    └─ Sell: Approve tokens
-        │
-        ├─ Calculate price
-        ├─ Check slippage
-        ├─ Burn tokens
-        ├─ Return TRUST
-        └─ Emit event
+┌──────────────────────┐
+│    User Action       │
+└──────┬───────────┬───┘
+       │           │
+       ▼           ▼
+┌──────────────┐ ┌──────────────┐
+│ Buy: Send    │ │ Sell: Approve│
+│ TRUST        │ │ tokens       │
+└──────┬───────┘ └──────┬───────┘
+       │                │
+       ├─ Calculate price
+       ├─ Check slippage
+       │                │
+       ▼                ▼
+┌──────────────┐ ┌──────────────┐
+│ Mint tokens  │ │ Burn tokens │
+└──────┬───────┘ └──────┬───────┘
+       │                │
+       ├─ Update supply │
+       ├─ Update points │
+       │                ├─ Return TRUST
+       │                │
+       ├─ Emit event    └─ Emit event
+       │
+       └─ Complete
 ```
 
 ### Liquidity Migration Flow
 
 ```
-Curve Completes (700M)
-    │
-    ▼
-Collect Resources
-    ├─ 300M tokens
-    └─ All TRUST balance
-    │
-    ▼
-Approve Router
-    │
-    ▼
-addLiquidityETH()
-    │
-    ▼
-Create LP Pair
-    │
-    ▼
-LP Tokens Locked
-    │
-    ▼
-Token on DEX
+┌──────────────────────┐
+│ Curve Completes      │
+│    (700M)            │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Collect Resources     │
+│  ├─ 300M tokens       │
+│  └─ All TRUST balance │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│   Approve Router      │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│  addLiquidityETH()    │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│   Create LP Pair      │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ LP Tokens Locked     │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│   Token on DEX       │
+└──────────────────────┘
 ```
 
 ## Function Signatures

@@ -202,34 +202,80 @@ await contract.buyTokens(tokenAddress, minTokensOut, {
 ## Workflow Diagram
 
 ```
-1. Deploy Launchpad
-   │
-   ▼
-2. Set Treasury + Router
-   │
-   ▼
-3. Frontend Integrated
-   │
-   ▼
-4. Users Create Tokens
-   │
-   ├─ Token Created (Locked)
-   │   │
-   │   ├─ Creator Buys 2% → Unlocked
-   │   │
-   │   ├─ Public Trading (Curve Active)
-   │   │   │
-   │   │   ├─ Users Buy/Sell
-   │   │   ├─ Points Earned
-   │   │   ├─ Volume Tracked
-   │   │   │
-   │   │   └─ Curve Completes (700M distributed)
-   │   │
-   │   └─ Auto-Migration to DEX
-   │       │
-   │       ├─ 300M tokens + TRUST → Liquidity
-   │       ├─ LP tokens locked
-   │       └─ Token Trades on DEX
+┌──────────────────────┐
+│  Deploy Launchpad    │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Set Treasury + Router│
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Frontend Integrated  │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Users Create Tokens  │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Token Created (Locked)│
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Creator Buys 2%      │
+│    → Unlocked        │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Public Trading       │
+│ (Curve Active)       │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│   Users Buy/Sell     │
+└──────┬───────────┬───┘
+       │           │
+       ▼           ▼
+┌──────────┐ ┌──────────┐
+│ Points   │ │ Volume   │
+│ Earned   │ │ Tracked  │
+└──────────┘ └────┬─────┘
+                  │
+                  ▼
+┌──────────────────────┐
+│ Curve Completes      │
+│ (700M distributed)   │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Auto-Migration       │
+│    to DEX             │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ 300M tokens + TRUST  │
+│  → Liquidity         │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│  LP tokens locked    │
+└──────────┬───────────┘
+           │
+           ▼
+┌──────────────────────┐
+│ Token Trades on DEX  │
+└──────────────────────┘
 ```
 
 ## Automation Features
